@@ -5,7 +5,7 @@ Django es un `web framework` para Python de alto nivel que fomenta el desarrollo
 ## Contenido:
 * [Instalación](#instalación)
 * [Crear proyecto](#crear-proyecto)
-* ORM de Django
+* [ORM de Django](#orm-de-django)
 * Modulo de administración
 * Despliegue en Pythonanywhere
 
@@ -100,3 +100,35 @@ $ python manage.py startapp blog
 ```
 Así como en el punto de creación de proyecto, aquí también se crearon varios archivos. Por lo pronto nos enfocaremos en `models.py` donde colocaremos las entidades que serán parte de nuestra aplicación.
 
+`models.py`
+``` python
+from django.db import models
+
+class Blog(models.Model):
+    name = models.CharField(max_length=100)
+    tagline = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+class Author(models.Model):
+    name = models.CharField(max_length=200)
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.name
+
+class Entry(models.Model):
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    headline = models.CharField(max_length=255)
+    body_text = models.TextField()
+    pub_date = models.DateField()
+    mod_date = models.DateField()
+    authors = models.ManyToManyField(Author)
+    number_of_comments = models.IntegerField()
+    number_of_pingbacks = models.IntegerField()
+    rating = models.IntegerField()
+
+    def __str__(self):
+        return self.headline
+```
