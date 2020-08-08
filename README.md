@@ -6,7 +6,11 @@ Django es un `web framework` para Python de alto nivel que fomenta el desarrollo
 * [Instalación](#instalación)
 * [Crear proyecto](#crear-proyecto)
 * [ORM de Django](#orm-de-django)
-    * Interacción con Shell y creación de Queries
+    * [Interacción con Shell y creación de Queries](#interacción-con-shell-y-creación-de-queries)
+        * C: (Create) - Creando objetos
+        * R: (Retrieve) - Recuperando objetos
+        * U: (Update) - Actualizando objetos
+        * D: (Delete) - Eliminando objetos
 * Modulo de administración
 * Despliegue en Pythonanywhere
 
@@ -262,3 +266,59 @@ Running migrations:
 Vemos más migraciones que la que creamos antes porque son las que vienen por defecto con Django, que hemos mencionado antes. A continuación vamos a interactuar con el `shell` de Django y crear varios registros.
 
 ### Interacción con Shell y creación de Queries
+Para ingresar al `shell` en el terminal ejecutamos:
+
+``` bash
+$ python manage.py shell
+```
+
+Tendremos lo siguiente:
+
+``` bash
+Python 3.6.8 (default, Jan 14 2019, 11:02:34) 
+[GCC 8.0.1 20180414 (experimental) [trunk revision 259383]] on linux  
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>>
+```
+Y podremos comenzar a interactuar con la consola.
+
+#### C: (Create) - Creando objetos
+
+Crearemos nuestro primer `blog`
+
+``` python
+>>> from blog.models import Blog
+>>> b = Blog(name='Mi primer Blog', tagline='Mi ejemplo de blog')
+>>> b.save()
+```
+
+Django en la llamada del método `save()` realiza la ejecución de un **INSERT** en la base de datos. Antes de `save()`, no se realiza ninguna operación en la base de datos. Se puede también realizar esta operación con la función `create`. Las operaciones que involucran manejo de datos en base, se ejecutan como `transactions`, si no está familiazirado con el término, revise la [documentación](https://docs.djangoproject.com/en/3.0/topics/db/transactions/)
+
+A continuación usaremos los campos `ForeignKey` y `ManyToManyField`
+
+``` python
+>>> entry = Entry()
+>>> entry.pub_date = '2020-08-08'
+>>> entry.mod_date = '2020-08-08'
+>>> entry.number_of_comments = 0
+>>> entry.number_of_pingbacks = 0
+>>> entry.rating = 0
+>>> entry.blog = b
+>>> entry.save()
+```
+
+En el paso anterior, creamos nuestra entrada, a la que hemos asociado con un blog, usando de esta forma el `ForeignKey` de ese modelo. Bastante sencillo, ¿cierto?. Agreguemos varios autores.
+
+``` python
+>>> from blog.models import Author
+>>> au1 = Author.objects.create(name='au1')>>> au2 = Author.objects.create(name='au2')
+>>> au3 = Author.objects.create(name='au3')
+>>> entry.authors.add(au1, au2, au3)
+```
+
+Django mostrará un mensaje de error si se asigna un objeto de tipo inapropiado.
+
+#### R: (Retrieve) - Recuperando objetos
+#### U: (Update) - Actualizando objetos
+#### D: (Delete) - Eliminando objetos
