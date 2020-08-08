@@ -3,9 +3,9 @@
 Django es un `web framework` para Python de alto nivel que fomenta el desarrollo rápido con diseño limpio y pragmático. Creado por desarrolladores experimentados, se ocupa de gran parte de la molestia del desarrollo web, por lo que se puede concentrarse en escribir su aplicación sin necesidad de reinventar la rueda. [Es gratis y de código abierto.](https://www.djangoproject.com/)
 
 ## Contenido:
-* Instalación
-* Crear proyecto
-* Creación de modelos y ORM
+* [Instalación](#instalación)
+* [Crear proyecto](#crear-proyecto)
+* ORM de Django
 * Modulo de administración
 * Despliegue en Pythonanywhere
 
@@ -86,4 +86,17 @@ Quit the server with CONTROL-C.
 ```
 
 Las migraciones a las que hace referencia el mensaje son las migraciones de los modelos que vienen por defecto en Django que tratan sobre el manejo del modulo de adminsitrador, usuarios y otros. Lo veremos más adelante. Si abrimos nuestro navegador y consultamos la URL nos debe salir la siguiente pantalla: 
+
+!['cap1'](https://raw.githubusercontent.com/gcmurillo/django_tutorial/master/capturas/cap_1.jpg)
+
+## ORM de Django
+
+El ORM (Object-Relational Mapping) es un modelo que consiste en la transformación de las tablas de una base de datos, en una serie de entidades que simplifiquen las tareas básicas de acceso a los datos. Según la documentación oficial, Django ofrece un API para la abstracción de la base de datos que permite crear, recuperar, actualizar y eliminar (*CRUD: Create, Retrieve, Update, Delete*). A continuación usaremos como ejemplo el ejercicio de la [documentación oficial.](https://docs.djangoproject.com/en/3.0/topics/db/queries/)
+
+Primero creemos nuestra app.
+
+``` bash
+$ python manage.py startapp blog
+```
+Así como en el punto de creación de proyecto, aquí también se crearon varios archivos. Por lo pronto nos enfocaremos en `models.py` donde colocaremos las entidades que serán parte de nuestra aplicación.
 
