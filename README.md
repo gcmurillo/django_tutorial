@@ -11,7 +11,7 @@ Django es un `web framework` para Python de alto nivel que fomenta el desarrollo
         * [R: (Retrieve) - Recuperando objetos](#r-retrieve---recuperando-objetos)
         * [U: (Update) - Actualizando objetos](#u-update---actualizando-objetos)
         * [D: (Delete) - Eliminando objetos](#d-delete---eliminando-objetos)
-* Modulo de administración
+* Módulo de administración
 * Despliegue en Pythonanywhere
 
 ## Instalación
@@ -408,3 +408,25 @@ b = Blog.objects.get(pk=1)
 # Se eliminará el Blog y los Entrys asociados.
 b.delete()
 ```
+
+### Módulo de administración
+
+Uno de los aspectos más poderosos de Django es su interfaz de administrador que viene por defecto. Este módulo se basa en los modelos de nuestras aplicaciones y provee de una interfaz rápida y bien proporcionada para el manejo del contenido dentro de nuestro proyecto. Se recomienda que este sea de uso limitado como herramienta interna de la organización y no para usuarios finales. A continuación veremos como colocar nuestros modelos en este y la personalización.
+
+Primero entremos a la interfaz de administración. Creemos un super usuario desde la consola
+
+``` bash
+$ python manage.py createsuperuser
+Username (leave blank to use 'gcmurillo'): admin
+Email address: Password: 
+Password (again): 
+Superuser created successfully.
+```
+
+En `localhost:8000/admin/` podremos acceder al administrador.
+
+![cap2]()
+
+Al ingresar, no visualizamos los modelos de nuestra aplicación `Blog`, sino solamente los que viene por defecto con Django para el manejo de usuarios.
+
+![cap3]()
