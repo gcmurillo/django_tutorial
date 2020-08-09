@@ -430,3 +430,21 @@ En `localhost:8000/admin/` podremos acceder al administrador.
 Al ingresar, no visualizamos los modelos de nuestra aplicación `Blog`, sino solamente los que viene por defecto con Django para el manejo de usuarios.
 
 ![cap3](https://raw.githubusercontent.com/gcmurillo/django_tutorial/master/capturas/cap_3.jpg)
+
+Vamos a colocar nuestro modelo `Author` en el nuestra interfaz de administración. Para eso modificaremos el archivo `admin.py` de `blog`
+
+``` python
+# blog/admin.py
+from django.contrib import admin
+from blog.models import Author
+
+class AuthorAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(Author, AuthorAdmin)
+```
+
+Revisemos nuestra interfaz.
+
+![cap4]()
+![cap5]()
