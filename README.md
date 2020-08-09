@@ -11,7 +11,7 @@ Django es un `web framework` para Python de alto nivel que fomenta el desarrollo
         * [R: (Retrieve) - Recuperando objetos](#r-retrieve---recuperando-objetos)
         * [U: (Update) - Actualizando objetos](#u-update---actualizando-objetos)
         * [D: (Delete) - Eliminando objetos](#d-delete---eliminando-objetos)
-* Módulo de administración
+* [Módulo de administración](#módulo-de-administración)
 * Despliegue en Pythonanywhere
 
 ## Instalación
@@ -425,8 +425,8 @@ Superuser created successfully.
 
 En `localhost:8000/admin/` podremos acceder al administrador.
 
-![cap2]()
+![cap2](https://raw.githubusercontent.com/gcmurillo/django_tutorial/master/capturas/cap_2.jpg)
 
 Al ingresar, no visualizamos los modelos de nuestra aplicación `Blog`, sino solamente los que viene por defecto con Django para el manejo de usuarios.
 
-![cap3]()
+![cap3](https://raw.githubusercontent.com/gcmurillo/django_tutorial/master/capturas/cap_3.jpg)
