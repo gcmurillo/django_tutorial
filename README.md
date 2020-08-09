@@ -320,5 +320,91 @@ En el paso anterior, creamos nuestra entrada, a la que hemos asociado con un blo
 Django mostrará un mensaje de error si se asigna un objeto de tipo inapropiado.
 
 #### R: (Retrieve) - Recuperando objetos
+
+Para obtener o `recuperar` objetos de nuestra base de datos, usaremos los `QuerySets` de nuestros modelos.
+
+Un `QuerySet` representa una colección de objetos de nuestra base de datos. Estos pueden ser cero, uno o varios objetos, y pueden ser accedidos aplicando filtros. En términos de SQL, un `QuerySet` es una setencia **SELECT** a la que se le aplican filtros, como lo hariamos en **WHERE** y podemos definir la cantidad máxima de objetos, como lo hariamos con **LIMIT**. Veamos algunos ejemplos.
+
+Primero vamos a obtener todos los autores que hemos creado.
+
+``` python
+>>> Author.objects.all()
+<QuerySet [<Author: au1>, <Author: au2>, <Author: au3>]>
+```
+
+Como es lógico asumir, `all()` nos retorna todos los autores que están en nuestra base de datos. A continuación usaremos filtros para ser más especificos. Existen dos formas de especificar los objetos que deseamos:
+
+* `filter(**kwargs)`: Retorna un nuevo `QuerySet` que contiene los objetos que corresponden a los parámetros establecidos.
+* `exclude(**kwargs)`: Retorna un nuevo `QuerySet` que **NO** corresponden a los establecidos.
+
+Veamos algunos ejemplos:
+
+``` python
+>>> Entry.objects.filter(pub_date__year=2020)
+<QuerySet [<Entry: >]
+>>>> Entry.objects.filter(pub_date__year=2019)
+<QuerySet []>
+```
+
+En este caso, usando `filter`, en el primero pude obtener solo los `Entry` tienen como año en `pub_date` el 2020. Como solo tengo un `Entry` creado y es del 2020, el siguiente que buscaba los publicados en 2019, no tiene objetos.
+
+También es posible encadenar filtros de la siguiente manera:
+
+``` python
+>>> Entry.objects.filter(
+...     headline__startswith='Encabezado'
+... ).exclude(
+...     pub_date__gte=datetime.date.today()
+... ).filter(
+...     pub_date__gte=datetime.date(2005, 1, 30)
+... )
+```
+
+Como se puede observar en los dos ejemplos, se emplean atributos de los campos de nuestros modelos con la notación `field__lookuptype=value`. Esto se denomina `Field Lookups`, que es una forma de especificar con mejor detalle una condición para nuestro filtro. 
+
+Por ejemplo:
+
+``` python
+>>> Entry.objects.filter(pub_date__lte='2006-01-01')
+```
+
+El equivalente en SQL seria el siguiente:
+
+``` sql
+SELECT * FROM blog_entry WHERE pub_date <= '2006-01-01';
+```
+
+Para mejor detalle sobre los `Field Lookups` revise la [documentación oficial](https://docs.djangoproject.com/en/3.0/topics/db/queries/#field-lookups)
+
 #### U: (Update) - Actualizando objetos
+
+Si uno desea colocar un valor para varios registros, podemos hacer uso de la función `update` a un `QuerySet` de la siguiente manera:
+
+``` python
+# Actualizar los headlines de los entry que sean del 2007.
+Entry.objects.filter(pub_date__year=2007).update(headline='Everything is the same')
+```
+Este caso es bastante sencillo, el query ciertamente es más complejo según lo hace el filtro.
+
 #### D: (Delete) - Eliminando objetos
+
+Eliminar también es bastante sencillo. Podemos eliminar mediante una instancia, de la siguiente manera:
+
+``` python
+# e es un Entry
+>>> e.delete()
+```
+
+Podemos eliminar varios registros, usando `QuerySet`:
+
+``` python
+>>> Entry.objects.filter(pub_date__year=2005).delete()
+```
+
+También, al eliminar objetos que tienen asociados por `ForeignKey`, estos también eliminarán a los que esten asociados a este, de la siguiente manera:
+
+``` python
+b = Blog.objects.get(pk=1)
+# Se eliminará el Blog y los Entrys asociados.
+b.delete()
+```
