@@ -446,5 +446,6 @@ admin.site.register(Author, AuthorAdmin)
 
 Revisemos nuestra interfaz.
 
-![cap4]()
-![cap5]()
+![cap4](https://raw.githubusercontent.com/gcmurillo/django_tutorial/master/capturas/cap_4.jpg)
+
+![cap5](https://raw.githubusercontent.com/gcmurillo/django_tutorial/master/capturas/cap_5.jpg)
