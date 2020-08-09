@@ -7,10 +7,10 @@ Django es un `web framework` para Python de alto nivel que fomenta el desarrollo
 * [Crear proyecto](#crear-proyecto)
 * [ORM de Django](#orm-de-django)
     * [Interacción con Shell y creación de Queries](#interacción-con-shell-y-creación-de-queries)
-        * C: (Create) - Creando objetos
-        * R: (Retrieve) - Recuperando objetos
-        * U: (Update) - Actualizando objetos
-        * D: (Delete) - Eliminando objetos
+        * [C: (Create) - Creando objetos](#c-create---creando-objetos)
+        * [R: (Retrieve) - Recuperando objetos](#r-retrieve---recuperando-objetos)
+        * [U: (Update) - Actualizando objetos](#u-update---actualizando-objetos)
+        * [D: (Delete) - Eliminando objetos](#d-delete---eliminando-objetos)
 * Modulo de administración
 * Despliegue en Pythonanywhere
 
